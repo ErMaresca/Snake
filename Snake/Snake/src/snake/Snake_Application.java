@@ -99,21 +99,21 @@ public class Snake_Application {
 	}
 	
 	private void creaGriglia() {
-	    int canvasWidth = canvas.getClientArea().width;
-	    int canvasHeight = canvas.getClientArea().height;
+	    int canvasLarghezza = canvas.getClientArea().width;
+	    int canvasAltezza = canvas.getClientArea().height;
 
-	    int gridWidth = LARGHEZZA * DIMENSIONE_CELLE;
-	    int gridHeight = ALTEZZA * DIMENSIONE_CELLE;
+	    int larghezzaGriglia = LARGHEZZA * DIMENSIONE_CELLE;
+	    int altezzaGriglia = ALTEZZA * DIMENSIONE_CELLE;
 
-	    int marginX = (canvasWidth - gridWidth) / 2;
-	    int marginY = (canvasHeight - gridHeight) / 2;
+	    int margineX = (canvasLarghezza - larghezzaGriglia) / 2;
+	    int margineY = (canvasAltezza - altezzaGriglia) / 2;
 
 	    GC gc = new GC(canvas);
 	    gc.setForeground(display.getSystemColor(SWT.COLOR_BLACK));
 
 	    for (int i = 0; i < LARGHEZZA; i++) {
 	        for (int j = 0; j < ALTEZZA; j++) {
-	            gc.drawRectangle(marginX + i * DIMENSIONE_CELLE, marginY + j * DIMENSIONE_CELLE, DIMENSIONE_CELLE, DIMENSIONE_CELLE);
+	            gc.drawRectangle(margineX + i * DIMENSIONE_CELLE, margineY + j * DIMENSIONE_CELLE, DIMENSIONE_CELLE, DIMENSIONE_CELLE);
 	        }
 	    }
 	    gc.dispose();
