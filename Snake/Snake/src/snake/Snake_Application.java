@@ -20,13 +20,16 @@ import org.eclipse.jface.resource.ColorDescriptor;
 import org.eclipse.swt.graphics.RGB;
 
 public class Snake_Application {
-
+	private Gioco gioco;
+	
 	private Display display;
 	private Shell shell;
 	private LocalResourceManager localResourceManager;
-	private Color sfondo;
+	private Color sfondo; // colore sfondo
 	private Canvas canvas;
-	private GridData gridData;
+	private GridData gridData; // caratteristiche griglia
+	private Label lblPunteggio; // punteggio utente
+	private Label lblSnake; // titolo
 	
 	private final int NUM_CELLE = 20;
 	private final int DIMENSIONE_CELLE = 25;
@@ -34,7 +37,7 @@ public class Snake_Application {
 	private final int LARGHEZZA = 30;	// larghezza campo di gioco (in celle)
 	private final int ALTEZZA = 30;		// altezza campo di gioco (in celle)
 	
-	private int[][] campo = new int[LARGHEZZA][ALTEZZA];
+	private int[][] campo = new int[LARGHEZZA][ALTEZZA]; // griglia di gioco
 	
 	/**
 	 * Launch the application.
@@ -77,17 +80,22 @@ public class Snake_Application {
 		shell.setBackground(sfondo);
 		shell.setLayout(new GridLayout(1, false));
 		
-		Label lblSnake = new Label(shell, SWT.CENTER);
+		
+		lblSnake = new Label(shell, SWT.CENTER);
 		lblSnake.setBackground(localResourceManager.create(ColorDescriptor.createFrom(new RGB(101, 67, 33))));
 		lblSnake.setFont(localResourceManager.create(FontDescriptor.createFrom("Viner Hand ITC", 28, SWT.BOLD)));
 		lblSnake.setText("SNAKE");
 		gridData = new GridData(SWT.CENTER, SWT.CENTER, true, false);
 		lblSnake.setLayoutData(gridData);
 		
+		// label punteggio
+		lblPunteggio = new Label(shell, SWT.NONE);
+		lblPunteggio.setAlignment(SWT.CENTER);
+		
 		canvas = new Canvas(shell, SWT.NONE);
 		canvas.setBackground(localResourceManager.create(ColorDescriptor.createFrom(new RGB(101, 67, 33))));
 		canvas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		 canvas.addPaintListener(new PaintListener() {
+		canvas.addPaintListener(new PaintListener() {
 		        public void paintControl(PaintEvent e) {
 		            creaGriglia();
 		        }
@@ -118,6 +126,4 @@ public class Snake_Application {
 	    }
 	    gc.dispose();
 	}
-
-
 }

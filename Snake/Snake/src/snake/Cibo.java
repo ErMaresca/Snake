@@ -1,19 +1,22 @@
 package snake;
 
 import java.util.Random;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.GC;
 
 public class Cibo implements Runnable{
 	Random random = new Random();
 	
-	private boolean fineGioco = false;
-	
 	private Display display;
 	private Canvas canvas;
+	private GC gc;
+	private ImageData dettagliImmagine;
+	private Image immagineCibo;
+	
+	private boolean fineGioco = false;
 	
 	private final int LARGHEZZA = 30;
 	private final int ALTEZZA = 30;
@@ -22,17 +25,14 @@ public class Cibo implements Runnable{
 	private int posizioneY; 
 	
 	private boolean ciboMangiato = false;
-	private ImageData dettagliImmagine;
 	
-	private Image immagineCibo;
+	  public Cibo(Display display) {
+	        this.display = display;
+	        this.dettagliImmagine = new ImageData("immagini/pizza.JPG");
+	        this.immagineCibo = new Image(display, dettagliImmagine.scaledTo(25, 25));
+	        generaCordinateCibo();
+	    }
 	
-	public Cibo(Display display, Canvas canvas) {
-		this.display = display;
-		this.canvas = canvas;
-		this.dettagliImmagine = new ImageData("immagini/pizza.JPG");
-		this.immagineCibo = new Image(display, dettagliImmagine.scaledTo(25, 25));
-		generaPosizioneCibo();
-	}
 	
 	public int getPosizioneX() {
 		return posizioneX;
@@ -63,7 +63,8 @@ public class Cibo implements Runnable{
 		while(!fineGioco) {
 			if(ciboMangiato) {
 				try {
-					generaPosizioneCibo();
+					generaCordinateCibo();
+					posizionaCibo();
 					ciboMangiato = false;
 				}
 				catch(Exception e) {
@@ -82,12 +83,12 @@ public class Cibo implements Runnable{
 		}
 	}
 	
-	private void generaPosizioneCibo() {
+	private void generaCordinateCibo() {
 		posizioneX = random.nextInt(LARGHEZZA)*25;
 		posizioneY = random.nextInt(ALTEZZA)*25;
 	}
 	
-	public void posizionaCibo(GC gc) {		
+	public void posizionaCibo() {		
 		gc.drawImage(immagineCibo, posizioneX, posizioneY);
 	}
 	
